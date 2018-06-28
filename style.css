@@ -167,7 +167,6 @@ div#statusBrd{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* align-items: flex-end; //horizontal */
 }
 div#chipCountBrd{
     height: 65%;

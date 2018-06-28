@@ -133,8 +133,8 @@ class Game{
         this.won = false;
         this.music = new Audio();
         this.music.src = "./src/introSong.mp3";
-        //this.music.play();
-        //this.music.loop = true;
+        this.music.play();
+        // this.music.loop = true;
     }
 }
 Game.prototype.turnSequence = function(event){
