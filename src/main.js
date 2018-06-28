@@ -3,6 +3,10 @@ var board;
 var player1;
 var player2;
 var currentTurn;
+var gameStatus = false;  // false = game off
+var music = new Audio();
+music.src = "./src/introSong.mp3";
+// music.loop = true;
 
 //Clases
 class Chip{
@@ -77,8 +81,8 @@ Board.prototype.checkWinner = function (){
     this.horizontalCheck() ||
     this.diagonalCheckLtoRBottom() ||
     this.diagonalCheckLtoRTop() ||
-    this.diagonalCheckLtoRBottom() ||
-    this.diagonalCheckLtoRTop())
+    this.diagonalCheckRtoLBottom() ||
+    this.diagonalCheckRtoLTop())
         console.log(currentTurn + " won"); 
     else{
         currentTurn = currentTurn === "P1" ? "P2" : "P1"
@@ -128,7 +132,7 @@ Board.prototype.diagonalCheckLtoRBottom = function(){
     }
     return won;
 }
-Board.prototype.diagonalCheckRtoLTop = function(){
+Board.prototype.diagonalCheckLtoRTop = function(){
     var won = false;
     var rowMax = 6;
     var colMax = 7;
@@ -146,8 +150,7 @@ Board.prototype.diagonalCheckRtoLTop = function(){
     }
     return won;
 }
-//Pendiente
-Board.prototype.diagonalCheckLtoRBottom = function(){
+Board.prototype.diagonalCheckRtoLBottom = function(){
     var won = false;
     var rowMax = 6;
     var colMax = 7;
@@ -165,7 +168,7 @@ Board.prototype.diagonalCheckLtoRBottom = function(){
    }
    return won;
 }
-Board.prototype.diagonalCheckLtoRTop = function(){
+Board.prototype.diagonalCheckRtoLTop = function(){
     var won = false;
     var rowMax = 6;
     var colMax = 7;
@@ -191,19 +194,24 @@ class Player{
 }
 //Main function
 function startGame(){
+    gameStatus = true;
     board = new Board();
     player1 = new Player(true, "red");
     player2 = new Player(false, "black");
     currentTurn = "P1";
 }
 function gameSequence(){
-    
 }
-startGame();
-
 //Event listeners
 $(document).ready(function() {
+    // startGame();
     $(".column").click(function(event){
       board.playTurn(event,currentTurn);
+    });
+    $("#start_game").click(function(){
+        if(!gameStatus){
+            startGame();
+            music.play();
+        }
     });
 });

@@ -33,7 +33,7 @@ header #crown{
     background-size: contain;
     animation-name: moveCrown;
     animation-duration: 1s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: 5;
 }
 @keyframes moveCrown {
     from {background-image: url("./img/crown3.png");}
@@ -43,7 +43,7 @@ header h2{
     text-align: center;
     animation-name: colorChange;
     animation-duration: 1s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: 5;
 }
 @keyframes colorChange {
     from {color: rgb(236,62,71);}
@@ -51,7 +51,6 @@ header h2{
 }
 header button{
     width: 200px;
-    /* margin: 10px; */
     background-color: rgb(236,62,71);
     border: none;
     color: white;
@@ -61,18 +60,38 @@ header button{
     display: inline-block;
     font-size: 16px;
     margin: 10px;
+    border-radius: 5px;
 }
 section{
     width: 1024px;
     height: 512px;
     margin: auto;
-    background-color: gray;
+    background-image: url('./img/bg.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: contain;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
-section img{
-    margin-top: 70px;
+section>div{
+    text-align: center;
+    width: 200px;
+}
+section>div>img{
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    width: 150px;
+}
+h2{
+    width: 100%;
+    background-color: white;
+    color: rgb(4,85,144);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 div#board{
     width:464px;
@@ -82,6 +101,7 @@ div#board{
     border-radius: 15px;
     display: flex;
     flex-direction: row;
+    margin-right: 10%;
 }
 div.column{
     width: 100%;
@@ -91,14 +111,16 @@ div.column{
     justify-content: space-around;
     align-items: center;
 }
+div.column:hover{
+    background-color:rgba(255,255,255,0.5);
+    border-radius: 5px;
+}
 .chip{
     border-radius: 50%;
     width: 50px;
     height: 50px;
     border: 3px solid gray;
-}
-.chip:hover{
-    border-color: black;
+    outline:none;
 }
 
 .normal{
@@ -112,7 +134,3 @@ div.column{
     background-color: rgb(250,203,47);
 }
 
-/* canvas{
-    margin: auto;
-    background-color: gray;
-} */

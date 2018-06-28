@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Connect4 by PT</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -19,7 +19,10 @@
     </header>
     <!-- <canvas id="canvas" width="1024" height="512"></canvas> -->
     <section>
-        <div>
+            <div id="enemyDiv">
+                    <img id="initialSis"src="img/sister.png" alt="sister">
+                    <h2 id="outputLog">Press Button to Start</h2>
+            </div>
             <div id="board">
                 <div class="column" id="col0"></div>
                 <div class="column" id="col1"></div>
@@ -32,10 +35,9 @@
     </section>
     <!-- JQuery -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
-    
     <!-- Main JS -->
-    <script src="main.js"></script>
+    <script src="src/main.js"></script>
 </body>
 </html>
