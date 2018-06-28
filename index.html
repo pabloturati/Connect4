@@ -11,17 +11,16 @@
     <header>
         <img id="logo" src="img/header_logo.png" alt="Connect 4">
         <div id="start-button-container">
-            <h2>Pretty sneaky Sis says you can't beat her</h2>
-            <button id="start_game" type="button">Think you can?</button>
+            <h1>Pretty sneaky Sis says you can't beat her</h1>
         </div>
         <div id="crown">
         </div>
     </header>
     <!-- <canvas id="canvas" width="1024" height="512"></canvas> -->
     <section>
-            <div id="enemyDiv">
-                    <img id="initialSis"src="img/sister.png" alt="sister">
-                    <h2 id="outputLog">Press Button to Start</h2>
+            <div id="instBrd">
+                <img id="instBrdImg" class="startingImg" alt="sister">
+                <h2 id="instBrdH2" class="startingH2">Press HERE to meet Sis</h2>
             </div>
             <div id="board">
                 <div class="column" id="col0"></div>
@@ -31,6 +30,23 @@
                 <div class="column" id="col4"></div>
                 <div class="column" id="col5"></div>
                 <div class="column" id="col6"></div>
+            </div>
+            <div id="statusBrd">
+                <div id="chipCountBrd">
+                    <ul>
+                        <li class="underline">Player's Chips</li>
+                        <li id="player1used">Used: 0</li>
+                        <li id="player1available">Available: 0</li>
+                    </ul>
+                    <ul>
+                        <li class="underline">Sis' Chips</li>
+                        <li id="player2used">Used: 0</li>
+                        <li id="player2available">Available: 0</li>
+                    </ul>
+                </div>
+                <div id="timeBoard">
+                    <span>00:00</span>
+                </div>
             </div>
     </section>
     <!-- JQuery -->

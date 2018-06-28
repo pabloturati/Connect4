@@ -1,4 +1,5 @@
-html,h1,h2,img{margin: 0; padding: 0;}
+html,h1,h2,img{margin: 0; padding: 0; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;}
+
 
 body{
     display: flex;
@@ -7,7 +8,7 @@ body{
     flex-wrap: wrap;
 }
 header{
-    width: 90%;
+    width: 1024px;
     margin: auto;
     display: flex;
     flex-direction: row;
@@ -22,7 +23,7 @@ div#start-button-container{
 }
 header img#logo{
     width: 300px;
-    margin: 5px;
+    /* margin: 5px; */
 }
 header #crown{
     width: 100px;
@@ -39,28 +40,16 @@ header #crown{
     from {background-image: url("./img/crown3.png");}
     to {background-image: url("./img/crown2.png")}
 }
-header h2{
+header h1{
     text-align: center;
     animation-name: colorChange;
     animation-duration: 1s;
     animation-iteration-count: 5;
+    font-size: 20px;
 }
 @keyframes colorChange {
     from {color: rgb(236,62,71);}
     to {color: orange;}
-}
-header button{
-    width: 200px;
-    background-color: rgb(236,62,71);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px;
-    border-radius: 5px;
 }
 section{
     width: 1024px;
@@ -69,29 +58,70 @@ section{
     background-image: url('./img/bg.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    /* Flex */
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-section>div{
+#instBrd{
+    height: 250px;
     text-align: center;
     width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
-section>div>img{
-    background-color: white;
+#instBrdImg{  
     padding: 5px;
     border-radius: 5px;
     width: 150px;
 }
-h2{
-    width: 100%;
+.startingImg{
     background-color: white;
+    content:url("img/sister.png");
+}
+/* Changes for Img */
+.SisWinsImg{
+    content:url("./img/sisCrown.png");
+    animation-name: happySis;
+    animation-duration: 1s;
+    animation-iteration-count: 5;
+}
+@keyframes happySis {
+    from {content:url("./img/sisCrown2.png");}
+    to {content:url("./img/sisCrown.png");}
+}
+.PlayerWinsImg{
+    background-color: rgb(236,62,71);
+    animation-name: sadSis;
+    animation-duration: 7s;
+    animation-iteration-count: 1;
+    content:url("./img/sisCries2.png")
+}
+@keyframes sadSis {
+    from {content:url("./img/sisCries1.png");}
+    to {content:url("./img/sisCries2.png");}
+}
+#instBrdH2{
+    width: 100%;
     color: rgb(4,85,144);
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 30px;
     border-radius: 5px;
     margin-top: 5px;
+}
+.startingH2{
+    background-color: white;
+}
+/* Changes for the H2 */
+.SisWinsH2{
+    background-color: rgb(250,203,47);
+    font: 50px;
+}
+.PlayerWinsH2{
+    background-color: rgb(236,62,71);
+    font: 50px;
 }
 div#board{
     width:464px;
@@ -101,7 +131,6 @@ div#board{
     border-radius: 15px;
     display: flex;
     flex-direction: row;
-    margin-right: 10%;
 }
 div.column{
     width: 100%;
@@ -120,17 +149,58 @@ div.column:hover{
     width: 50px;
     height: 50px;
     border: 3px solid gray;
-    outline:none;
+    outline: none;
 }
-
 .normal{
     background-color: white;
 }
-
-.clickedP1{
+.clickedPlayer{
     background-color: rgb(236,62,71);
 }
-.clickedP2{
+.clickedSis{
     background-color: rgb(250,203,47);
+}
+div#statusBrd{
+    text-align: center;
+    width: 150px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: flex-end; //horizontal */
+}
+div#chipCountBrd{
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+section ul{
+    background-color: white;
+    margin-bottom: 5px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 5px;
+}
+section li{
+    padding-top: 1px;
+    font-size: 20px;
+}
+li.underline{
+    text-decoration: underline;
+}
+div#timeBoard{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+div#timeBoard span{
+    background-color: white;
+    font-size: 40px;
+    border-radius: 5px;
 }
 
