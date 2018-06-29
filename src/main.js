@@ -63,8 +63,11 @@ Board.prototype.playTurn = function(event, turn){
             break;
         }
     }
-    if(itemChecked === null) console.log("the column is full");
-    else this.updateChipClass(itemChecked,turn);
+    if(itemChecked === null) return true;// this.lostTurnFlag = true   console.log("the column is full");
+    else{
+        this.updateChipClass(itemChecked,turn);
+        return false;
+    }
 }
 Board.prototype.updateChipClass = function(itemChecked,turn){
     $(itemChecked).removeClass("normal");
@@ -141,7 +144,7 @@ class Game{
         this.music = new Audio();
         this.music.src = "./src/startSong.mp3";
         this.music.play();
-        // this.music.loop = true;
+        this.music.loop = true;
         this.winSound = new Audio();
         this.winSound.src = "./src/win.mp3";
         this.loseSound = new Audio();
@@ -163,7 +166,7 @@ Game.prototype.createTimer = function(turn){
     },1000)
 }
 Game.prototype.turnSequence = function(event){
-    this.board.playTurn(event,this.turn);
+    this.lostTurnFlag = this.board.playTurn(event,this.turn);
     this.runCheck();
         if(this.won){
             clearInterval(this.interval);
