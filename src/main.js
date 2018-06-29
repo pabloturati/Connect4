@@ -1,5 +1,5 @@
 //Global variables
-var gameStatus = false;  // false = game off
+var gameStatus = 0;  // 0 = no game has started  1 = game is going   2 = game ended, game can restart game 
 var winnerStatus = false;
 
 //Clases
@@ -87,8 +87,7 @@ class scoreBoard{
             this.p2uDOM = $('#player2used');
             this.p2aDOM = $('#player2available');
             //Time to play
-            this.timeBoard =  $('#timeBoard');
-        
+            this.timeBoard =  $('#remainingTime');
         //Variables
         this.p1used = 0;
         this.p1available = colMax*rowMax/2;
@@ -114,13 +113,16 @@ scoreBoard.prototype.updateInstruction = function(turn, won){
         // this.instBrdH2.removeClass("startingH2"); Maybe not needed
 
         // Change the Img
-        this.instBrdH2.text(turn+" WINS!!!!");
+        this.instBrdH2.text(turn+" WINS!!!! Click here to play again");
         this.instBrdImg.addClass(turn+"WinsImg");
         // this.instBrdImg.removeClass("startingImg"); Maybe not needed
     }else{
-        var str = (turn === "Player") ? ("It is "+turn+"'s turn") : ("It is "+turn+"' turn");
+        var str = (turn === "Player") ? ("It is the "+turn+"'s turn") : ("It is "+turn+"' turn");
         this.instBrdH2.text(str);
     }
+}
+scoreBoard.prototype.updateTimerDOM = function (time){
+    this.timeBoard.text(time);
 }
 class Game{
     constructor(initialTurn){
@@ -128,41 +130,90 @@ class Game{
         this.player1 = new Player("Player", "red");
         this.player2 = new Player("Sis", "yellow");
         this.scoreBoard = new scoreBoard(this.board.colMax,this.board.rowMax);
-        this.currentTurn = initialTurn;
         this.turn = initialTurn;
         this.won = false;
+        this.scoreBoard.updateInstruction(this.turn,this.won);  //Set first player to play
+        this.interval;
+        this.createTimer(this.turn);
+        this.lostTurnFlag = false;
+        
+        //Audios
         this.music = new Audio();
-        this.music.src = "./src/introSong.mp3";
+        this.music.src = "./src/startSong.mp3";
         this.music.play();
         // this.music.loop = true;
+        this.winSound = new Audio();
+        this.winSound.src = "./src/win.mp3";
+        this.loseSound = new Audio();
+        this.loseSound.src = "./src/lose.mp3";
     }
+}
+Game.prototype.createTimer = function(turn){
+    var counter = 10;
+    var that = this;
+    this.interval = setInterval(function(){
+        counter--;
+        console.log(counter);
+        that.scoreBoard.updateTimerDOM(counter);
+        if(counter <= 0){
+            clearInterval(that.interval);
+            that.lostTurnFlag = true;
+            that.swapTurns();
+        }
+    },1000)
 }
 Game.prototype.turnSequence = function(event){
     this.board.playTurn(event,this.turn);
     this.runCheck();
         if(this.won){
-            winnerStatus = this.won;
-            this.scoreBoard.updateInstruction(this.turn,this.won);
+            clearInterval(this.interval);
+            this.initiateWinSequence();
         }
         else this.swapTurns();
 }   
+Game.prototype.initiateWinSequence = function(){
+    winnerStatus = this.won;
+    gameStatus = 2;
+    this.music.pause();
+
+    if(this.turn == "Sis") this.loseSound.play();
+    else this.winSound.play();
+
+    this.scoreBoard.updateInstruction(this.turn,this.won);
+    
+    var time = 4;
+    var that = this;
+    var timeOut = setInterval(function(){
+        time--;
+        if(time <= 0){
+            clearInterval(timeOut);
+            that.scoreBoard.instBrdH2.text("Press HERE to go again");
+        }
+    },1000);
+}
 Game.prototype.swapTurns = function (){
+    clearInterval(this.interval);
     //Adjust Chips
     if(this.turn === "Player"){
-        this.scoreBoard.p1used++;
-        this.scoreBoard.p1available--;
+        if(!this.lostTurnFlag){
+            this.scoreBoard.p1used++;
+            this.scoreBoard.p1available--;
+        }
         this.turn = "Sis"  //SwapsTurn
     }
     else{
-        this.scoreBoard.p2used++;
-        this.scoreBoard.p2available--;
+        if(!this.lostTurnFlag){
+            this.scoreBoard.p2used++;
+            this.scoreBoard.p2available--;
+        }
         this.turn = "Player"  //SwapsTurn
     }
+    this.lostTurnFlag = this.lostTurnFlag === true ? false : false;
+
+    this.createTimer(this.turn);
     this.scoreBoard.updateInstruction(this.turn,this.won)  
     this.scoreBoard.updateChipsUsed();
-    console.log(this.turn);
 }
-
 Game.prototype.runCheck = function (){  //If there is a winner, changes the value of won to TRUE
     this.verticalCheck();
     this.horizontalCheck();
@@ -255,8 +306,15 @@ Game.prototype.diagonalCheckRtoLTop = function(){
 }
 //Main function
 function startGame(){
-    gameStatus = true;
+    gameStatus = 1;
     game = new Game("Player");
+}
+function restartGame(){
+    gameStatus = 2;
+    winnerStatus = false;
+    game = "";
+    console.log("restart");
+    window.location.reload(startGame());
 }
 //Event listeners
 $(document).ready(function() {
@@ -267,8 +325,10 @@ $(document).ready(function() {
       }
     });
     $("#instBrdH2").click(function(){
-        if(!gameStatus){  //If there is NOT a game going on, start a new one.
+        if(gameStatus == 0){  //If there is NOT a game going on, start a new one.
             startGame();
+        } else if(gameStatus == 2){
+            restartGame();
         }
     });
 });

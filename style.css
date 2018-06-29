@@ -111,10 +111,10 @@ section{
     border-radius: 5px;
     margin-top: 5px;
 }
+/* Changes for the Instruction board (H2) */
 .startingH2{
     background-color: white;
 }
-/* Changes for the H2 */
 .SisWinsH2{
     background-color: rgb(250,203,47);
     font: 50px;
@@ -199,7 +199,8 @@ div#timeBoard{
 }
 div#timeBoard span{
     background-color: white;
-    font-size: 40px;
+    font-size: 30px;
     border-radius: 5px;
+    height: 80px;
 }
 
