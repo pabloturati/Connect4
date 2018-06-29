@@ -43,6 +43,8 @@ class Board{
         this.createBoard();
         this.rowMax = 6;
         this.colMax = 7;
+        this.coinSound = new Audio();
+        this.coinSound.src = "./src/coinDrop0.mp3";
     }
 }
 Board.prototype.createBoard = function(){
@@ -66,6 +68,7 @@ Board.prototype.playTurn = function(event, turn){
     if(itemChecked === null) return true;// this.lostTurnFlag = true   console.log("the column is full");
     else{
         this.updateChipClass(itemChecked,turn);
+        this.coinSound.play();
         return false;
     }
 }
